@@ -112,23 +112,17 @@ function MainController($http, $routeParams) {
 
         });
 
-        for (i = 0; i < markers.length; i++){
-          google.maps.event.addListener(markers[i], 'click', function() {
-             window.location.href = this.url
+        for (i = 0; i < markers.length; i++) {
+          google.maps.event.addListener(markers[i], 'click', function () {
+            window.location.href = this.url
           });
           markers[i].setMap(map)
         }
 
-        // split up brigades into columns
-        function chunk(brigades, cols){
-          var collated = [];
-          for (var i=0; i<brigades.length; i+=cols){
-            collated.push(brigades.slice(i, i+cols));
-          }
-          return collated;
-        }
-        vm.brigades = vm.brigades.reverse();
-        vm.brigade_rows = chunk(vm.brigades, 2);
+        vm.brigade_rows = [
+            [vm.brigades[0],vm.brigades[2],vm.brigades[4],vm.brigades[6],vm.brigades[8]],
+            [vm.brigades[1],vm.brigades[3],vm.brigades[5],vm.brigades[7],vm.brigades[9]]
+        ];
 
 
         var heatmapGradient = [
