@@ -107,7 +107,7 @@ function MainController($http, $routeParams) {
           vm.brigades.push([value.name, value.growth_metric || 0, value.city]);
 
           heatmapData.push({
-            location: new google.maps.LatLng(value.latitude, value.longitude), weight: Math.max(0, value.growth_metric)
+            location: new google.maps.LatLng(value.latitude, value.longitude), weight: Math.max(0, value.members)
           });
 
         });
@@ -139,7 +139,8 @@ function MainController($http, $routeParams) {
         ];
 
     heatmap = new google.maps.visualization.HeatmapLayer({
-      data: heatmapData
+      data: heatmapData,
+      radius: 30
     });
     heatmap.setMap(map);
   });
