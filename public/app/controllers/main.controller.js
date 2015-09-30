@@ -126,7 +126,7 @@ function MainController($http, $routeParams) {
           }
           return collated;
         }
-
+        vm.brigades = vm.brigades.reverse();
         vm.brigade_rows = chunk(vm.brigades, 2);
 
 
