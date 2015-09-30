@@ -121,6 +121,17 @@ function MainController($http, $routeParams) {
         nameWeight =  _.sortBy(nameWeight, function(n) {return n[1]} );
 
         vm.brigades = nameWeight.reverse();
+
+        // split up brigades into columns
+        function chunk(brigades, cols){
+          var collated = [];
+          for (var i=0; i<brigades.length; i+=cols){
+            collated.push(brigades.slice(i, i+cols));
+          }
+          return collated;
+        }
+
+        vm.brigade_rows = chunk(vm.brigades, 2);
         
 
         var heatmapGradient = [
