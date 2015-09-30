@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html ng-app='project-x' lang='en'>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,47 +8,43 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel='stylesheet' href='./style/main.css'>
 
-  </head>
-  <body>
-    <navbar></navbar>
-    <div class='row'>
-      <div class="col-xs-12 text-center">
-    <h1 style="font-style: italic; color:#960013; font-weight: 900">Brigade Pulse</h1>
-  </div>
-  </div>
-   <div ng-app="project-x">
+</head>
+<body>
+<navbar></navbar>
+<div ng-app="project-x">
 
     <div ng-view class="page-content">
     </div>
-  </div>
-    <!--Dependencies -->
-    <script src='./bower_components/jquery/dist/jquery.min.js'></script>
-    <script src='./bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
-    <script src="./bower_components/angular/angular.js"></script>
-    <script src="./bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-    <script src="./bower_components/angular-route/angular-route.min.js"></script>
-    <script src="./bower_components/angular-strap/dist/angular-strap.min.js"></script>
-    <script src="./bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
-    <script src="./bower_components/lodash/lodash.min.js"></script>
-    <!--<script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxOcxRbxCBR8A2HGCQ_BPuhPVg1f1g_jU"></script>-->
-    <script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false"></script>
-  <!--App scripts -->
-  <!-- Main Module -->
-  <script src="./app/main.module.js"></script>
-  <!-- Filters -->
-  <!-- Constants -->
-  <script src="./app/main.constants.js"></script>
-  <!-- Configs -->
-  <script src="./app/configs/main.config.js"></script>
-  <!-- Directives -->
-  <script src="./app/directives/navbar.js"></script>
-  <!-- Controllers -->
-  <script src='./app/controllers/main.controller.js'></script>
-  <script src='./app/controllers/brigades.controller.js'></script>
-  <script src='./app/controllers/contributors.controller.js'></script>
-  <script src='./app/controllers/projects.controller.js'></script>
-  <!-- Factories -->
-  <script src='./app/filters/eventsDate.filter.js'></script>
-  <script src="/js/brigadesCache.js"></script>
-  </body>
+</div>
+<!--Dependencies -->
+<script src='./bower_components/jquery/dist/jquery.min.js'></script>
+<script src='./bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src="./bower_components/angular/angular.js"></script>
+<script src="./bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="./bower_components/angular-route/angular-route.min.js"></script>
+<script src="./bower_components/angular-strap/dist/angular-strap.min.js"></script>
+<script src="./bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+<script src="./bower_components/lodash/lodash.min.js"></script>
+<!--<script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxOcxRbxCBR8A2HGCQ_BPuhPVg1f1g_jU"></script>-->
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false"></script>
+<!--App scripts -->
+<!-- Main Module -->
+<script src="./app/main.module.js"></script>
+<!-- Filters -->
+<!-- Constants -->
+<script src="./app/main.constants.js"></script>
+<!-- Configs -->
+<script src="./app/configs/main.config.js"></script>
+<!-- Directives -->
+<script src="./app/directives/navbar.js"></script>
+<!-- Controllers -->
+<script src='./app/controllers/main.controller.js'></script>
+<script src='./app/controllers/brigades.controller.js'></script>
+<script src='./app/controllers/contributors.controller.js'></script>
+<script src='./app/controllers/projects.controller.js'></script>
+<!-- Factories -->
+<script src='./app/filters/eventsDate.filter.js'></script>
+<script src="/js/brigadesCache.js"></script>
+</body>
 </html>
