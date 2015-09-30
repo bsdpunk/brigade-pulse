@@ -22,7 +22,7 @@ def get_brigades_by_activity(request):
             b.website,
             (SELECT COUNT(p.id) FROM project p WHERE p.brigade_id=b.id) as projects,
             mg.members as current_members,
-            COALESCE(100*((mg.members - four_weeks_ago.members)/four_weeks_ago.members), 100) as one_month_growth,
+            COALESCE(100*((mg.members - four_weeks_ago.members)/four_weeks_ago.members), 0) as one_month_growth,
             (COALESCE(100*((mg.members - four_weeks_ago.members)/four_weeks_ago.members), 0) +
             COALESCE(100*((mg.members - two_weeks_ago.members)/two_weeks_ago.members), 0) +
             COALESCE(100*((mg.members - one_week_ago.members)/one_week_ago.members), 0))/3 as growth_metric
@@ -55,6 +55,7 @@ def get_brigades_by_activity(request):
               GROUP BY brigade_id
               ) as one_week_ago ON one_week_ago.brigade_id = b.id
         LEFT JOIN meetup_group mg ON mg.brigade_id = b.id
+        WHERE b.type LIKE '%Brigade%' AND b.type LIKE '%Official'
         ORDER BY growth_metric DESC
     """
     cursor = connection.cursor()
