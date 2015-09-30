@@ -22,17 +22,19 @@
   </div>
 
   <div class="panel-heading col-lg-3 col-sm-12 text-center">
-    <h2 class="top-5-title">Top 5
+    <h2 class="top-10-title">Top 10
       <br> Brigades
     </h2>
 
-    <div class="panel-body" ng-repeat="name in main.brigades | limitTo:5">
-      <a ng-href="#/brigades/{{name[0]}}">
-        <div type="button" class="btn btn-default btn-md btn-block" style="border:solid 1px; box-shadow: 5px 5px 2px #888888;">
-          <h3 style="overflow: hidden; white-space: nowrap;text-overflow: ellipsis;">{{name[0]}}</h3>
-          <h4>{{name[2]}}</h4>
-        </div>
-      </a>
+    <div class="row" ng-repeat="row in main.brigade_rows | limitTo:5">
+      <div class="panel-body top-brigade col-lg-6 col-sm-12" ng-repeat="name in row">
+        <a ng-href="#/brigades/{{name[0]}}">
+          <div type="button" class="btn btn-default btn-md btn-block" style="border:solid 1px; box-shadow: 5px 5px 2px #888888;">
+            <h4 style="overflow: hidden; white-space: nowrap;text-overflow: ellipsis;">{{name[0]}}</h4>
+            <h5>{{name[2]}}</h5>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 

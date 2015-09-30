@@ -15,10 +15,13 @@ margin-bottom: 20px;
   padding: 10px 2%;
 }
 
-.btn h4{
+.btn h5{
   color: #A1001B;
 }
 
+.top-brigade {
+  width: 50%;
+}
 
 .brigade-list, .brigade-projects ul, .brigade-events ul, .project-profile ul{
 	list-style-type: none;

@@ -20,6 +20,7 @@ def scrape_github_repos_for_all_projects():
                 github_repository = GitHubRepository.objects.filter(id=repo_json['id']).first()
                 if not github_repository:
                     github_repository = GitHubRepository()
+                github_repository.id = repo_json['id']
                 github_repository.name = repo_json['name']
                 github_repository.description = repo_json['description']
                 github_repository.language = repo_json['language']
