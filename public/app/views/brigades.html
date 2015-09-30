@@ -1,32 +1,27 @@
 <div class="row text-center">
-	<div class='col-lg-2 col-md-2 col-sm-2 col-xs-1'></div>
-  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-    <h1>Code for America Brigades</h1>
-		<h4><strong>Number of Brigades: </strong>{{ brigades.brigadeTotal }}</h4>
-  </div>
-  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-		<br>
-		<br>
-    <label class='form'>Search for a Brigade by City:</label>
-    <input class='form-control' type="text" ng-model="search" bs-options="brigades.brigade.name for brigade in brigades.brigades" placeholder="Search..." bs-typeahead>
-    <label>Filter Brigades By:
-    <select ng-model="brigades.orderList">
-      <option value="name">Name</option>
-      <option value="-total_projects">Total Projects</option>
-      <option value="">Ranking</option>
-    </select>
-    </label>
-  </div>
-	<div class='col-lg-2 col-md-2 col-sm-2 col-xs-1'></div>
-</div>
-<ul class="cfb-brigades brigade-list">
-  <li class="brigade col-md-4" ng-repeat="brigade in brigades.brigades | filter:{city:search}:brigades.leadChar | orderBy: brigades.orderList">
-    <div>
-      <a ng-href="/#/brigades/{{brigades.getBrigadeNameFormat(brigade.name)}}">
-        <h3>{{ brigade.name}}, {{ brigade.city }}</h3>
-      </a>
-      <p>
-        <strong>Current Projects: </strong>{{ brigade.total_projects }}</p>
+    <div class="col-lg-10 col-lg-offset-1">
+        <h1>Code for America Brigades</h1>
     </div>
-  </li>
-</ul>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <table datatable="ng" class="row-border hover">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>City</td>
+                <td>Members</td>
+                <td>Projects</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="brigade in brigades.brigades" ng-click="brigades.click(brigade.id)">
+                <td>{{ brigade.name }}</td>
+                <td>{{ brigade.city }}</td>
+                <td>{{ brigade.current_members }}</td>
+                <td>{{ brigade.projects }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
