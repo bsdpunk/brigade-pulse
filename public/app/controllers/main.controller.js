@@ -105,8 +105,9 @@ function MainController($http, $routeParams) {
             });
           markers.push(marker);
           vm.brigades.push([value.name, value.growth_metric || 0, value.city]);
+
           heatmapData.push({
-            location: new google.maps.LatLng(value.latitude, value.longitude), weight: value.growth_metric
+            location: new google.maps.LatLng(value.latitude, value.longitude), weight: Math.max(0, value.growth_metric)
           });
 
         });
