@@ -90,9 +90,9 @@ function MainController($http, $routeParams) {
       $.getJSON("./brigade_weights.json", function(data){weightLookUp = data});
       var heatmap;
 
-      var nameWeight = [];
       var marker;
       var markers = [];
+      vm.brigades = [];
 
       $http.get('/data/home-page-data/').
       success(function(data) {
@@ -100,11 +100,11 @@ function MainController($http, $routeParams) {
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(value.latitude, value.longitude),
             title: value.name,
-            url: "#/brigades/" + value.id,
+            url: "#/brigades/" + value.name,
             icon: './pin.png'
             });
           markers.push(marker);
-          nameWeight.push([value.name, value.members || 0, value.city]);
+          vm.brigades.push([value.name, value.growth_metric || 0, value.city]);
           heatmapData.push({
             location: new google.maps.LatLng(value.latitude, value.longitude), weight: value.growth_metric
           });
@@ -114,13 +114,9 @@ function MainController($http, $routeParams) {
         for (i = 0; i < markers.length; i++){
           google.maps.event.addListener(markers[i], 'click', function() {
              window.location.href = this.url
-          })
+          });
           markers[i].setMap(map)
         }
-
-        nameWeight =  _.sortBy(nameWeight, function(n) {return n[1]} );
-
-        vm.brigades = nameWeight.reverse();
 
         // split up brigades into columns
         function chunk(brigades, cols){
@@ -148,9 +144,7 @@ function MainController($http, $routeParams) {
         ];
 
     heatmap = new google.maps.visualization.HeatmapLayer({
-      data: heatmapData,
-      gradient: heatmapGradient,
-      radius: 30
+      data: heatmapData
     });
     heatmap.setMap(map);
   });
