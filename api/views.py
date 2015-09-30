@@ -22,6 +22,7 @@ def get_brigades_by_activity(request):
             b.website,
             (SELECT COUNT(p.id) FROM project p WHERE p.brigade_id=b.id) as projects,
             mg.members as current_members,
+            COALESCE(100*((mg.members - four_weeks_ago.members)/four_weeks_ago.members), 100) as one_month_growth,
             (COALESCE(100*((mg.members - four_weeks_ago.members)/four_weeks_ago.members), 0) +
             COALESCE(100*((mg.members - two_weeks_ago.members)/two_weeks_ago.members), 0) +
             COALESCE(100*((mg.members - one_week_ago.members)/one_week_ago.members), 0))/3 as growth_metric

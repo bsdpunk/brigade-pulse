@@ -12,6 +12,7 @@
                 <td>City</td>
                 <td>Members</td>
                 <td>Projects</td>
+                <td>Member Growth (1mo)</td>
             </tr>
             </thead>
             <tbody>
@@ -20,6 +21,7 @@
                 <td>{{ brigade.city }}</td>
                 <td>{{ brigade.current_members }}</td>
                 <td>{{ brigade.projects }}</td>
+                <td>{{ brigade.one_month_growth | number : 2 }}</td>
             </tr>
             </tbody>
         </table>
