@@ -94,21 +94,21 @@ function MainController($http, $routeParams) {
       var marker;
       var markers = [];
 
-      $http.get('http://codeforamerica.org/api/organizations.geojson').
+      $http.get('/data/home-page-data/').
       success(function(data) {
-        $.each(data.features, function(index, value) {
+        $.each(data, function(index, value) {
           marker = new google.maps.Marker({
-            position: new google.maps.LatLng(value.geometry.coordinates[1], value.geometry.coordinates[0]),
-            title: value.properties.name,
+            position: new google.maps.LatLng(value.latitude, value.longitude),
+            title: value.name,
             url: "#/brigades/" + value.id,
             icon: './pin.png'
             });
-          markers.push(marker)
-          nameWeight.push([value.properties.name, weightLookUp[value.id] || 0, value.properties.city])
+          markers.push(marker);
+          nameWeight.push([value.name, value.members || 0, value.city]);
           heatmapData.push({
-            location: new google.maps.LatLng(value.geometry.coordinates[1], value.geometry.coordinates[0]), weight: weightLookUp[value.id]
+            location: new google.maps.LatLng(value.latitude, value.longitude), weight: value.growth_metric
           });
-          
+
         });
 
         for (i = 0; i < markers.length; i++){
@@ -132,7 +132,7 @@ function MainController($http, $routeParams) {
         }
 
         vm.brigade_rows = chunk(vm.brigades, 2);
-        
+
 
         var heatmapGradient = [
           'rgba(0, 255, 255, 0)',
@@ -145,7 +145,7 @@ function MainController($http, $routeParams) {
           'rgba(255, 0, 10, 1)',
           'rgba(255, 0, 5, 1)',
           'rgba(255, 0, 0, 1)'
-        ]
+        ];
 
     heatmap = new google.maps.visualization.HeatmapLayer({
       data: heatmapData,
