@@ -1,5 +1,6 @@
 from django.core.management import BaseCommand
-from api.scrapers.cfa_scraper import scrape_brigades_and_projects
+
+from api.tasks import run_scrapers_nightly
 
 
 class Command(BaseCommand):
@@ -7,5 +8,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write('Scraping Brigades and Projects from CfA website...')
-        scrape_brigades_and_projects()
+        run_scrapers_nightly()  # running the nightly task pretty much covers it!
         self.stdout.write('Finished scraping brigades and projects!')

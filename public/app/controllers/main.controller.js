@@ -90,38 +90,40 @@ function MainController($http, $routeParams) {
       $.getJSON("./brigade_weights.json", function(data){weightLookUp = data});
       var heatmap;
 
-      var nameWeight = [];
       var marker;
       var markers = [];
+      vm.brigades = [];
 
-      $http.get('http://codeforamerica.org/api/organizations.geojson').
+      $http.get('/data/home-page-data/').
       success(function(data) {
-        $.each(data.features, function(index, value) {
+        $.each(data, function(index, value) {
           marker = new google.maps.Marker({
-            position: new google.maps.LatLng(value.geometry.coordinates[1], value.geometry.coordinates[0]),
-            title: value.properties.name,
-            url: "#/brigades/" + value.id,
+            position: new google.maps.LatLng(value.latitude, value.longitude),
+            title: value.name,
+            url: "#/brigades/" + value.name,
             icon: './pin.png'
             });
-          markers.push(marker)
-          nameWeight.push([value.properties.name, weightLookUp[value.id] || 0, value.properties.city])
+          markers.push(marker);
+          vm.brigades.push([value.name, value.growth_metric || 0, value.city]);
+
           heatmapData.push({
-            location: new google.maps.LatLng(value.geometry.coordinates[1], value.geometry.coordinates[0]), weight: weightLookUp[value.id]
+            location: new google.maps.LatLng(value.latitude, value.longitude), weight: Math.max(0, value.members)
           });
-          
+
         });
 
-        for (i = 0; i < markers.length; i++){
-          google.maps.event.addListener(markers[i], 'click', function() {
-             window.location.href = this.url
-          })
+        for (i = 0; i < markers.length; i++) {
+          google.maps.event.addListener(markers[i], 'click', function () {
+            window.location.href = this.url
+          });
           markers[i].setMap(map)
         }
 
-        nameWeight =  _.sortBy(nameWeight, function(n) {return n[1]} );
+        vm.brigade_rows = [
+            [vm.brigades[0],vm.brigades[2],vm.brigades[4],vm.brigades[6],vm.brigades[8]],
+            [vm.brigades[1],vm.brigades[3],vm.brigades[5],vm.brigades[7],vm.brigades[9]]
+        ];
 
-        vm.brigades = nameWeight.reverse();
-        
 
         var heatmapGradient = [
           'rgba(0, 255, 255, 0)',
@@ -134,11 +136,10 @@ function MainController($http, $routeParams) {
           'rgba(255, 0, 10, 1)',
           'rgba(255, 0, 5, 1)',
           'rgba(255, 0, 0, 1)'
-        ]
+        ];
 
     heatmap = new google.maps.visualization.HeatmapLayer({
       data: heatmapData,
-      gradient: heatmapGradient,
       radius: 30
     });
     heatmap.setMap(map);
