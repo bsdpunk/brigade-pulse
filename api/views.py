@@ -8,7 +8,7 @@ def dictfetchall(cursor):
     return [
         dict(zip(columns, row))
         for row in cursor.fetchall()
-    ]
+        ]
 
 
 def get_brigades_by_activity(request):
@@ -61,3 +61,56 @@ def get_brigades_by_activity(request):
     cursor = connection.cursor()
     cursor.execute(query)
     return JsonResponse(dictfetchall(cursor), safe=False)
+
+
+def get_brigade_profile(request, brigade_id):
+    query = """
+        SELECT b.id AS id,
+          b.name AS brigade_name,
+          b.city AS city,
+          b.website AS website,
+          mg.rating AS rating,
+          mg.topics AS topics,
+          mg.members AS members,
+          (SELECT COUNT(p.id) FROM project p WHERE p.brigade_id=b.id) AS projects
+        FROM brigade b
+        LEFT JOIN meetup_group mg ON b.id = mg.brigade_id
+        WHERE b.id='{}'
+    """.format(brigade_id)
+    cursor = connection.cursor()
+    cursor.execute(query)
+    d = dictfetchall(cursor)[0]
+
+    query = """
+        SELECT date_part('epoch',date_trunc('week', mts.timestamp))*1000 AS day, round(avg(mts.members)) AS members
+              FROM meetupgroup_time_series mts
+              LEFT JOIN meetup_group mg ON mg.id = mts.original_model_id
+              WHERE mg.brigade_id='{}'
+              GROUP BY date_trunc('week', mts.timestamp)
+              ORDER BY date_trunc('week', mts.timestamp) ASC
+    """.format(brigade_id)
+    cursor.execute(query)
+    d['meetup_members_time_series'] = dictfetchall(cursor)
+
+    query = """
+        SELECT date_part('epoch',date_trunc('week', grts.timestamp))*1000 AS day, count(grts.id) AS repos
+              FROM githubrepository_time_series grts
+              LEFT JOIN github_repository gr ON gr.id = grts.original_model_id
+              LEFT JOIN project p ON p.github_repository_id = gr.id
+              WHERE p.brigade_id='{}'
+              GROUP BY date_trunc('week', grts.timestamp)
+              ORDER BY date_trunc('week', grts.timestamp) ASC
+    """.format(brigade_id)
+    cursor.execute(query)
+    d['repos_time_series'] = dictfetchall(cursor)
+
+    query = """
+        SELECT date_part('epoch',me.start_time)*1000 AS day, me.headcount AS headcount, me.name as name
+              FROM meetup_event me
+              WHERE me.brigade_id='{}' AND me.start_time < current_date
+              ORDER BY me.start_time ASC
+    """.format(brigade_id)
+    cursor.execute(query)
+    d['meetup_events_time_series'] = dictfetchall(cursor)
+
+    return JsonResponse(d, safe=False)

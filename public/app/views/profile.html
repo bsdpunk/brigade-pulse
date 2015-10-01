@@ -1,12 +1,11 @@
 <header class="text-center">
-  <h1>{{brigade.brigadeDetails.name}}</h1>
-  <h2><i>{{ brigade.brigadeDetails.city }}</i></h2>
+  <h2>{{brigade.data.brigade_name}}</h2>
+  <h3><i>{{ brigade.data.city }}</i></h3>
 </header>
 <dl id="brigade-overview" class="dl-horizontal">
-  <dt id="number-of-members">Number of Members</dt><dd>{{brigade.numberOfMembers}}</dd>
-  <dt id="captains">Brigade Captains</dt><dd>{{brigade.brigadeCaptains}}</dd>
-  <dt ng-show="brigade.rating" id="rating">Rating</dt><dd>{{brigade.rating}}</dd>
-  <dt id="topics">Topics</dt> <dd>{{brigade.topics}}</dd>
+  <dt id="number-of-members">Number of Members</dt><dd>{{brigade.data.members}}</dd>
+  <dt id="rating">Rating</dt><dd>{{brigade.data.rating}}</dd>
+  <dt id="topics">Topics</dt> <dd>{{brigade.data.topics}}</dd>
 </dl>
 <div id="brigade-graphs" class="row">
   <div id="projects-graph" class="col-xs-12 col-md-4"></div>
