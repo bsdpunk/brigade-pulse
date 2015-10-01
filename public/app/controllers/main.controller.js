@@ -86,8 +86,6 @@ function MainController($http, $routeParams) {
         mapOptions);
 
       var heatmapData = [];
-      var weightLookUp;
-      $.getJSON("./brigade_weights.json", function(data){weightLookUp = data});
       var heatmap;
 
       var marker;

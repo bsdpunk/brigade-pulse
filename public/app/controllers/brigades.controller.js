@@ -10,7 +10,7 @@ function brigadesController($http) {
         .success(function (data) {
             vm.brigades = data;
             console.log('yay')
-        })
+        });
 
     vm.click = function(id) {
         window.document.location = '/#/brigades/' + id;
