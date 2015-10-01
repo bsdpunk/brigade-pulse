@@ -7,16 +7,16 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-offset-1 col-lg-6 col-sm-12 text-center">
-        <h2>Brigades by Size</h2>
+    <div class="col-lg-offset-1 col-lg-6 col-sm-12">
+        <h2 class="text-center">Brigades by Size</h2>
 
         <div id="map-canvas" style="border:solid; width: 100%; box-shadow: 10px 10px 5px #888888;">
         </div>
         <br/>
     </div>
 
-    <div class="col-lg-4 col-sm-12 text-center">
-        <h2>Fastest Growing Brigades</h2>
+    <div class="col-lg-4 col-sm-12">
+        <h2 class="text-center">Fastest Growing Brigades</h2>
 
         <div class="row">
             <div class="panel-body top-brigade col-lg-6 col-sm-12" ng-repeat="row in main.brigades | limitTo:10">
@@ -25,11 +25,15 @@
                          style="border:solid 1px; box-shadow: 5px 5px 2px #888888;">
                         <h5 style="overflow: hidden; white-space: nowrap;text-overflow: ellipsis;">{{row[0]}}</h5>
                         <h6>{{row[2]}}</h6>
+
                         <p>{{ row[1] | number : 1 }}% last month</p>
                     </div>
                 </a>
             </div>
         </div>
+        <p>The monthly growth metric here is an average of 1 month, 2 week, and 1 week growth - specifically to
+            flatten out the figure for brand-new brigades (they'll still show up) and boost the number for brigades
+            with consistent growth</p>
     </div>
 </div>
 
