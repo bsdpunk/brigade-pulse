@@ -102,7 +102,7 @@ function MainController($http, $routeParams) {
             icon: './pin.png'
             });
           markers.push(marker);
-          vm.brigades.push([value.name, value.growth_metric || 0, value.city]);
+          vm.brigades.push([value.id, value.name, value.growth_metric || 0, value.city]);
 
           heatmapData.push({
             location: new google.maps.LatLng(value.latitude, value.longitude), weight: Math.max(0, value.members)
