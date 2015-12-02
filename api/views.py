@@ -107,7 +107,7 @@ def get_brigade_profile(request, brigade_id):
     query = """
         SELECT date_part('epoch',me.start_time)*1000 AS day, me.headcount AS headcount, me.name as name
               FROM meetup_event me
-              WHERE me.brigade_id='{}' AND me.start_time < current_date
+              WHERE me.brigade_id='{}' AND me.start_time < current_date AND me.headcount > 0
               ORDER BY me.start_time ASC
     """.format(brigade_id)
     cursor.execute(query)

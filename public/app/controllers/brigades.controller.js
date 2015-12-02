@@ -39,7 +39,7 @@ function profileController($http, $routeParams) {
                 vm.meetup_events_time_series_js.push(
                     {
                         name: ts.name,
-                        x: ts.day,
+
                         y: ts.headcount
                     })
             }
@@ -92,13 +92,13 @@ function profileController($http, $routeParams) {
 
             $("#events-graph").highcharts({
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 title: {
                     text: 'Event Attendance'
                 },
                 xAxis: {
-                    type: 'datetime'
+                    type: 'category'
                 },
                 yAxis: {
                     title: {
