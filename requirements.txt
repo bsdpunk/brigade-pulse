@@ -7,7 +7,7 @@ Django==1.8.3
 
 # dj-database-url parses the local environment variable DATABASE_URL
 # serverside and builds the appropriate config object for it
-dj-database-url==0.3.0
+dj-database-url==0.4.1
 
 # Psycopg2 is the preferred Python <-> Postgres driver, especially for Django
 psycopg2==2.6.1
