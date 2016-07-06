@@ -1,6 +1,7 @@
 import os
 
 import dj_database_url
+import raven
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -71,4 +72,10 @@ CELERY_RESULT_BACKEND = os.getenv('REDIS_URL', 'redis://')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-from celery_worker import app  # WITHOUT THIS LINE CELERY FAILS TO WORK
+
+RAVEN_CONFIG = {
+    'dsn': 'https://9829e8b7954e4aba8d561ce8db55d616:ba7519259cb541b88470801bbde64555@sentry.trailblazingtech.com/3',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+}

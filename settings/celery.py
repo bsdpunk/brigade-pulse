@@ -11,7 +11,7 @@ from raven.contrib.celery import register_signal, register_logger_signal
 class Celery(celery.Celery):
 
     def on_configure(self):
-        client = raven.Client('DSN HERE')
+        client = raven.Client('https://9829e8b7954e4aba8d561ce8db55d616:ba7519259cb541b88470801bbde64555@sentry.trailblazingtech.com/3')
 
         # register a custom filter to filter out duplicate logs
         register_logger_signal(client)
