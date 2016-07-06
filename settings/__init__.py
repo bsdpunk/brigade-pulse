@@ -75,7 +75,8 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 RAVEN_CONFIG = {
     'dsn': 'https://9829e8b7954e4aba8d561ce8db55d616:ba7519259cb541b88470801bbde64555@sentry.trailblazingtech.com/3',
-    # If you are using git, you can also automatically configure the
-    # release based on the git info.
-    'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
+try:
+    RAVEN_CONFIG['release'] = raven.fetch_git_sha(os.path.dirname(os.path.dirname(__file__)))
+except:
+    RAVEN_CONFIG['release'] = os.getenv('GIT_REV', '')
