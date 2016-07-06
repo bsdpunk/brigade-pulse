@@ -3,12 +3,12 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 from django.conf import settings
 
-import celery
+from celery import Celery
 import raven
 from raven.contrib.celery import register_signal, register_logger_signal
 
 
-class Celery(celery.Celery):
+class Celery(Celery):
 
     def on_configure(self):
         client = raven.Client('https://9829e8b7954e4aba8d561ce8db55d616:ba7519259cb541b88470801bbde64555@sentry.trailblazingtech.com/3')

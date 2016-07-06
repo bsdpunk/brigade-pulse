@@ -28,7 +28,7 @@ python-dateutil==2.4.2
 django-extensions==1.5.5
 
 # Celery is an asynchronous job runner that can pull from queues in the background
-celery==3.1.18
+celery==3.1.23
 
 # Redis is a key value store we use for our Celery queue
 redis==2.10.3
